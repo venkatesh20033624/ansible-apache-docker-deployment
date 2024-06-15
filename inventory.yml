@@ -1,0 +1,4 @@
+all:
+  hosts:
+    kali:
+      ansible_connection: local
