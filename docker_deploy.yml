@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Configure Apache Docker network
+      docker_network:
+        name: apache_network
+        ipam_config:
+          - subnet: "172.168.10.0/30"
+
+    - name: Deploy Apache Docker container
+      docker_container:
+        name: apache
+        image: httpd:latest
+        state: started
+        published_ports:
+          - "80:80"
+        networks:
+          - name: apache_network
